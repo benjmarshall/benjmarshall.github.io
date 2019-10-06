@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="map[name:Ben Marshall]">
+<meta name="description"
+    content="Introduction
+Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&amp;rsquo;ll cover the tools I&amp;rsquo;m using, my methodology and show you how to pick up and integrate these ideas." />
+<meta name="keywords" content="homepage, blog, electronics, fpga, development, programming, mountain biking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/boost-your-productivity-with-xilinx-vivado-hls/" />
+
+
+<title>
+    
+    Boost Your Productivity with Xilinx Vivado HLS :: Ben Marshall 
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="theme-color" content="#252627"><meta itemprop="name" content="Boost Your Productivity with Xilinx Vivado HLS">
+<meta itemprop="description" content="Introduction
+Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.">
+
+
+<meta itemprop="datePublished" content="2017-07-05T05:38:25&#43;00:00" />
+<meta itemprop="dateModified" content="2017-07-05T05:38:25&#43;00:00" />
+<meta itemprop="wordCount" content="2266">
+
+
+
+<meta itemprop="keywords" content="fpga,xilinx,hls,vivado,hlsclt," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content=""/>
+
+<meta name="twitter:title" content="Boost Your Productivity with Xilinx Vivado HLS"/>
+<meta name="twitter:description" content="Introduction
+Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas."/>
+
+
+
+<meta property="article:section" content="posts" />
+
+<meta property="article:published_time" content="2017-07-05 05:38:25 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/about">About</a></li><li><a href="/posts">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>11 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="/posts/boost-your-productivity-with-xilinx-vivado-hls/">Boost Your Productivity with Xilinx Vivado HLS</a></h1>
+
+            
+
+            <div class="post-content">
+                <p><strong>Introduction</strong><br />
+Over the last couple of weeks I have written about <a href="/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
+
+<p><strong>Tools and OS Setup</strong><br />
+My distro of choice is the fantastic <a href="https://manjaro.org/">Manjaro Linux</a>. However, Xilinx&rsquo;s Vivado Suite is only supported on Windows and RHEL, CentOS, SUSE and Ubuntu Linux. I personally use CentOS as it is a completely free, community supported, enterprise quality distribution which uses RHEL as it&rsquo;s upstream source. I only use CentOS to provide the base for those tools which require it (Vivado, Matlab etc) and so it is relegated to running in a virtual machine. To achieve this I use VirtualBox and typically boot the CentOS VM on the command line using VirtualBox&rsquo;s built in <a href="https://www.virtualbox.org/manual/ch07.html#vboxheadless">headless support</a>. I have ssh configured so that I can remotely log in to the running VM with X window forwarding and have a shared data partition permanently mounted so all the CentOS based tools feel like they are running locally. Alongside the Xilinx design tools I also have <a href="https://github.com/benjmarshall/hlsclt/">hlsclt</a> installed on the CentOS VM as it needs to interact with Vivado HLS directly.</p>
+
+<p>On my main distro I have all the other important tools installed, including Python for modelling and scripting (I also have a full python install under CentOS), and <a href="https://atom.io/">Atom</a>which is my main editing environment.</p>
+
+<p><strong>Atom</strong><br />
+Atom is a sleek, modern and powerful text editor design by the folks behind github. It is customisable and extensible, with a wealth of community supported plugins. Whilst any editor and a terminal will allow you to get started using Vivado HLS on the command line, if you haven&rsquo;t already got a blind dedication to Vim or Emacs I would recommend giving Atom a try. I personally use and recommend the following plugins to provide a powerful and efficient development environment:</p>
+
+<ul>
+<li>minimap</li>
+<li>platformio-ide-terminal</li>
+<li>project-manager</li>
+<li>tree-view-git-status</li>
+<li>autocomplete-plus</li>
+<li>language-python</li>
+<li>language-c</li>
+<li>tree-view</li>
+<li>tabs</li>
+<li>find-and-replace</li>
+</ul>
+
+<p>With Atom set up I have a fantastic text editor, with code completion, syntax highlighting and other &lsquo;must have&rsquo; features, with a built in terminal for interacting with my other tools.</p>
+
+
+    <figure class="center" >
+        <img src="/images/atom_hls_screenshot.png"  alt="Atom HLS Screenshot"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom text editor showing C&#43;&#43; source code and integrated terminal running a simulation.</figcaption>
+        
+    </figure>
+
+
+
+
+    <figure class="center" >
+        <img src="/images/atom_hls_screenshot2.png"  alt="Atom HLS Screenshot"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom text editor showing python source and the integrated terminal.</figcaption>
+        
+    </figure>
+
+
+
+<p><strong>Project Structure</strong><br />
+I follow a standard structure for all Vivado HLS developments to simplify switching between projects, scripting builds and configuring source control. The project directory is named sensibly to reflect the piece of IP or design that it contains. The top level of the project contains two source folders &lsquo;src&rsquo; and &lsquo;tb&rsquo; and the hlsclt configuration file, config.py. All of the files required for the synthesisable design live in the &lsquo;src&rsquo; directory and all of the testbench code and other supporting files (data files, input stimulus etc) live in the &lsquo;tb&rsquo; directory.</p>
+
+<ul>
+<li>my_project_name</li>
+<li>src
+
+<ul>
+<li>my_src_file_1.cpp</li>
+<li>my_src_file_1.h</li>
+<li>my_src_file_2.cpp</li>
+<li>&hellip;</li>
+</ul></li>
+<li>tb
+
+<ul>
+<li>testbench.cpp</li>
+<li>testbench_supporting_file.dat</li>
+</ul></li>
+<li>config.py</li>
+</ul>
+
+<p><strong>Development Methodology</strong><br />
+I start a new project by creating the project structure shown above. I typically bring in some template code for the testbench. This has some of the typical C includes and a skeleton main function. Finally, I create a blank cpp file for the main function.</p>
+
+<p>After the structure is in place I normally fire up the Vivado HLS GUI (which goes against the grain of what I&rsquo;ve been saying I know&hellip;) to do the initial code development. The HLS GUI offers issue highlighting which quickly shows when functions are not recognised due to missing C includes or incorrect function prototypes. I&rsquo;ve found this to be a really helpful feature whilst getting the first version of some executable function code together. Unfortunately I haven&rsquo;t managed to recreate this functionality in my Atom based editing environment yet so the HLS GUI gets used whilst I get enough code in place to run an initial C simulation.</p>
+
+
+    <figure class="center" >
+        <img src="/images/hls_template_screenshot.png"  alt="Testbench Template"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >The Vivado HLS GUI showing a template testbench cpp file.</figcaption>
+        
+    </figure>
+
+
+
+<p>Once the initial code is executing and I can run a C simulation, even if the design doesn&rsquo;t yet provide the intended functionality (and most often doesn&rsquo;t) I move over to Atom. To do this I take the details from the project&rsquo;s generated script.tcl and use them to create the &lsquo;config.py&rsquo; configuration file for hlsclt. Using Atom and hlsclt I can then rapidly iterate through adding functionality and manipulating the existing code whilst executing C simulations to put in place the full functionality of the design.</p>
+
+<p>Atom and hlsclt continue to be the main tools when I take the design through to C Synthesis and Cosimulation. When the design has its full functionality (or at some other suitable point) I run an initial C Synthesis (no directives, just raw code) and Cosimulation. This Cosimulation should pass, if it doesn&rsquo;t then something is really wrong! Of course, this relies on a well-designed and self-checking testbench. We will save discussion on good testing methodology for another time, for now let&rsquo;s just say it&rsquo;s important to have a good testbench.</p>
+
+<p>Now it&rsquo;s time to optimise! Whether you are looking to crunch through your processing in the least possible time, or minimise the resource usage and create the smallest IP core possible, the optimisation phase looks pretty much the same. I start by analysing the C synthesis reports, taking a benchmark and looking for any obvious functions, processes, loops etc. which look like easy starting points. I also take a close look at the C Synthesis logs, paying particular attention to any warning messages. HLS likes to provide you with warnings when things are sub-optimal, and I would suggest you always aim to have zero warnings by the time you have a stable design (or at least very few warnings, which have all been documented and justified).</p>
+
+
+    <figure class="center" >
+        <img src="/images/atom_warnings_screenshot.png"  alt="C Synthesis Warnings"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom editor showing C Synthesis warnings and the origin function.</figcaption>
+        
+    </figure>
+
+
+
+<p>Aim for the <em>big hitters</em> first; get a &lsquo;dataflow&rsquo; directive on if you think your design is suitable for it and look for loops that can be pipelined. If you&rsquo;re aiming for throughput then look for opportunities to unroll loops or add pipelining at the function level. If you&rsquo;re trying to minimise resources then look for opportunities to inline functions or time-share and re-use functions. I will say it again, keep an eye on your C synthesis log!</p>
+
+<p>hsclt provides the &lsquo;keep&rsquo; option, which is extremely useful during this optimisation phase. Add a <code>--keep</code> (or <code>-k</code>) argument to your <code>hlsclt build</code> command to instruct hlsclt to preserve your current Vivado HLS solution and use a new one for the current build. This way you can compare the results of multiple solutions to see the effect of your directives or code changes. Remember to regularly run a Cosimulation as you iterate through changes. Relatively simple changes to your build may introduce errors in Cosimulation, and you are much better off catching them just after you&rsquo;ve made the offending change, rather than several changes later! hlsclt also offers the <code>status</code> command which is a quick way of viewing your project&rsquo;s current status. It prints out the terminal a few standard details and then shows the run/pass/fail/not-run status of each of the HLS build stages, very useful as you rattle round C Simulation, C Synthesis and Cosimulation loops. Another useful feature is the ability to quickly load your project in the Vivado HLS GUI using the <code>hlsclt open_gui</code> command. This allows you to open up the optimisation views to see where you are burning control cycles, or where your dataflow sequence is going wrong, and then get back to your main editor to fix the issue and repeat the last build sequence.</p>
+
+
+    <figure class="center" >
+        <img src="/images/hlsclt_status_screenshot.png"  alt="hlsclt Status Command"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Screenshot showing the hlsclt status command output.</figcaption>
+        
+    </figure>
+
+
+
+<p>Once the design is showing the performance you want in the post synthesis estimates/cosimulation, and it is reliably passing cosimulation, then it&rsquo;s time to move on to the export. You can choose to package up the Vivado HLS output as either an input for the Vivado IP Catalog, which can then be incorporated in a Vivado project, or you can package for System Generator in order to use your IP core as part of a Xilinx System Generator Matlab/Simulink model.</p>
+
+<p>It is important to perform an &lsquo;evaluation&rsquo; on your export early on, I usually do so on my very first export at this point. The evaluate option tells the tool to run the packaged IP block through a Vivado Synthesis and Place and Route process in order to get much more accurate timing and resource details. I&rsquo;ve generally found that the resource usage post Place and Route will be slightly lower than estimated. However, the achievable clock frequency can often cause trouble, especially for large designs, or those with a particularly heavy use of directives. If at this point the evaluation shows that Vivado can&rsquo;t achieve your desired clock rate then you may need to fall back and iterate around another couple of C synthesis loops.</p>
+
+<p>Once the export and evaluation stage is giving you the results you want then you can move into your standard design flow, or hand off your IP core to your trusty colleagues!</p>
+
+<p><strong>Source Control</strong><br />
+One topic I haven&rsquo;t mentioned yet in this post is source control/version management. I thought I would cover this all in one section instead of sprinkling it throughout the other topics. Source control should of course be a fundamental part of your development process, if it&rsquo;s not already (even if you are a hobbyist or student), then I would recommend getting something set up now. Who knows when you might irreversibly break your source code, or accidentally delete an entire Vivado project!</p>
+
+<p>Using Vivado HLS as described above allows for extremely easy integration with source control tools. I use Git for personal projects but have also used SVN professionally in this manner, and both work well. I have adopted a simplified version of Vincent Driessen&rsquo;s <a href="http://nvie.com/posts/a-successful-git-branching-model/">Git branching model</a> where I often don&rsquo;t require release branches to be formed, but try to strictly follow the development/feature branching process. However, typically a HLS project will be just one part of a larger repository so the source control conventions may not always be yours to decide!</p>
+
+<p>I usually perform an initial commit/checkin as soon as I have the skeleton project structure in place (to a development branch if this is part of a larger repository, or straight to master if this is a fresh repo), and then create my main feature branch (e.g. master -&gt; develop -&gt; develop-initial-code), which should take me through to the point where my initial function code is simulating. You should follow your normal conventions for when to commit/checkin, often after significant changes, and between working on different functional sections of your code.</p>
+
+<p>A sensible time to merge your initial feature branch back into the main &lsquo;develop&rsquo; branch (and maybe even the master branch) is when it is successfully passing C Simulation for the first time. At this point you are likely to move on to running the C Synthesis stage and exploring code changes/directives targeted at performance rather than functionality, so a new &lsquo;feature&rsquo; branch should be started.</p>
+
+<p>Multiple &lsquo;feature&rsquo; branches can exist at the some point in time, for example to allow multiple engineers to explore optimisation of different modules/functions within a single large HLS project. I would strongly encourage a rigorous use of source control as one of the fundamentals of managing efficient team work within a HLS development. Parallel optimisation branches may of course mean more difficult merges if any of the function prototypes require changes, and it&rsquo;;s worth flagging that scenario early if you think it will happen.</p>
+
+<p>One of the most important rules of working with source control for HLS projects is to avoid including generated files in your commits. Including generated files can cause havoc when working as part of a team on the same project, and can shed doubt on the validity of your &lsquo;current&rsquo; results even in simple projects. Using hlsclt provides an advantage here as you have access to the <code>clean</code> command which can automatically clean up and remove any generated files, leaving just your source code in place for a commit/checkin. Using the directory structure presented at the start of this post I (almost always) only have the src and tb folders and a config.py file under source control. Another good idea is to setup a .gitignore file or SVN:ignore property to provide a secondary mechanism of disregarding generated files. If you are using hlsclt then I recommend sticking with the default project name and not overwriting this in your config.py, that way you can simply follow the hlsclt conventions and ignore any &lsquo;proj_*&rsquo; directories. When using hlsclt, it is also important to ignore the run_hls.tcl file that the tool generates.</p>
+
+<p><strong>Summary</strong><br />
+Working with Vivado HLS can be an efficient and pleasant experience, especially if you stop and think about whether you currently have the best environment for developing and make steps to improve it. Described above is my current preferred development environment and process. It probably won&rsquo;t work for everyone but I&rsquo;m sure there will be some positive things to take away for anyone reading this post. I hope this will also demonstrate what hlsclt can offer and how to make the most of it. If you find yourself questioning whether your efficiency could be improved then perhaps give what I&rsquo;ve shown here a go. See if you can streamline your process and boost your productivity.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="tags/fpga">fpga</a></span><span class="tag"><a href="tags/xilinx">xilinx</a></span><span class="tag"><a href="tags/hls">hls</a></span><span class="tag"><a href="tags/vivado">vivado</a></span><span class="tag"><a href="tags/hlsclt">hlsclt</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2266 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2017-07-05 06:38 &#43;0100</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">
+                                <span class="button__text">Introducing hlsclt: a Vivado HLS Helper Tool</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="">Ben Marshall</a></span>
+            
+            <span></span>
+            <span> <a href="posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.4c3fb12a087ceed4a52cb5d57068a9795c7069617a01ca70f788052ad66e1791779e6c72686e1dc0ca13dc03b0203204b6566bb0dd1ee80de2b7ff4d8fe53db2.js" integrity="sha512-TD&#43;xKgh87tSlLLXVcGipeVxwaWF6Acpw94gFKtZuF5F3nmxyaG4dwMoT3AOwIDIEtlZrsN0e6A3it/9Nj&#43;U9sg=="></script>
+
+
+
+    </body>
+</html>

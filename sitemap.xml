@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/boost-your-productivity-with-xilinx-vivado-hls/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/fpga/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/hls/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/hlsclt/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/posts/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/vivado/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xilinx/</loc>
+    <lastmod>2017-07-05T05:38:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</loc>
+    <lastmod>2017-07-03T08:52:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/using-vivado-hls-on-the-command-line/</loc>
+    <lastmod>2017-06-14T02:39:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+  </url>
+  
+</urlset>

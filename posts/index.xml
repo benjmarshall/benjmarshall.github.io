@@ -1,0 +1,449 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Ben Marshall</title>
+        <link>/posts/</link>
+        <description>Recent content in Posts on Ben Marshall</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-gb</language>
+        <lastBuildDate>Wed, 05 Jul 2017 05:38:25 +0000</lastBuildDate>
+        <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Boost Your Productivity with Xilinx Vivado HLS</title>
+            <link>/posts/boost-your-productivity-with-xilinx-vivado-hls/</link>
+            <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+            
+            <guid>/posts/boost-your-productivity-with-xilinx-vivado-hls/</guid>
+            <description>Introduction
+Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&amp;rsquo;ll cover the tools I&amp;rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</description>
+            <content type="html"><![CDATA[<p><strong>Introduction</strong><br />
+Over the last couple of weeks I have written about <a href="/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
+
+<p><strong>Tools and OS Setup</strong><br />
+My distro of choice is the fantastic <a href="https://manjaro.org/">Manjaro Linux</a>. However, Xilinx&rsquo;s Vivado Suite is only supported on Windows and RHEL, CentOS, SUSE and Ubuntu Linux. I personally use CentOS as it is a completely free, community supported, enterprise quality distribution which uses RHEL as it&rsquo;s upstream source. I only use CentOS to provide the base for those tools which require it (Vivado, Matlab etc) and so it is relegated to running in a virtual machine. To achieve this I use VirtualBox and typically boot the CentOS VM on the command line using VirtualBox&rsquo;s built in <a href="https://www.virtualbox.org/manual/ch07.html#vboxheadless">headless support</a>. I have ssh configured so that I can remotely log in to the running VM with X window forwarding and have a shared data partition permanently mounted so all the CentOS based tools feel like they are running locally. Alongside the Xilinx design tools I also have <a href="https://github.com/benjmarshall/hlsclt/">hlsclt</a> installed on the CentOS VM as it needs to interact with Vivado HLS directly.</p>
+
+<p>On my main distro I have all the other important tools installed, including Python for modelling and scripting (I also have a full python install under CentOS), and <a href="https://atom.io/">Atom</a>which is my main editing environment.</p>
+
+<p><strong>Atom</strong><br />
+Atom is a sleek, modern and powerful text editor design by the folks behind github. It is customisable and extensible, with a wealth of community supported plugins. Whilst any editor and a terminal will allow you to get started using Vivado HLS on the command line, if you haven&rsquo;t already got a blind dedication to Vim or Emacs I would recommend giving Atom a try. I personally use and recommend the following plugins to provide a powerful and efficient development environment:</p>
+
+<ul>
+<li>minimap</li>
+<li>platformio-ide-terminal</li>
+<li>project-manager</li>
+<li>tree-view-git-status</li>
+<li>autocomplete-plus</li>
+<li>language-python</li>
+<li>language-c</li>
+<li>tree-view</li>
+<li>tabs</li>
+<li>find-and-replace</li>
+</ul>
+
+<p>With Atom set up I have a fantastic text editor, with code completion, syntax highlighting and other &lsquo;must have&rsquo; features, with a built in terminal for interacting with my other tools.</p>
+
+
+    <figure class="center" >
+        <img src="/images/atom_hls_screenshot.png"  alt="Atom HLS Screenshot"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom text editor showing C&#43;&#43; source code and integrated terminal running a simulation.</figcaption>
+        
+    </figure>
+
+
+
+
+    <figure class="center" >
+        <img src="/images/atom_hls_screenshot2.png"  alt="Atom HLS Screenshot"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom text editor showing python source and the integrated terminal.</figcaption>
+        
+    </figure>
+
+
+
+<p><strong>Project Structure</strong><br />
+I follow a standard structure for all Vivado HLS developments to simplify switching between projects, scripting builds and configuring source control. The project directory is named sensibly to reflect the piece of IP or design that it contains. The top level of the project contains two source folders &lsquo;src&rsquo; and &lsquo;tb&rsquo; and the hlsclt configuration file, config.py. All of the files required for the synthesisable design live in the &lsquo;src&rsquo; directory and all of the testbench code and other supporting files (data files, input stimulus etc) live in the &lsquo;tb&rsquo; directory.</p>
+
+<ul>
+<li>my_project_name</li>
+<li>src
+
+<ul>
+<li>my_src_file_1.cpp</li>
+<li>my_src_file_1.h</li>
+<li>my_src_file_2.cpp</li>
+<li>&hellip;</li>
+</ul></li>
+<li>tb
+
+<ul>
+<li>testbench.cpp</li>
+<li>testbench_supporting_file.dat</li>
+</ul></li>
+<li>config.py</li>
+</ul>
+
+<p><strong>Development Methodology</strong><br />
+I start a new project by creating the project structure shown above. I typically bring in some template code for the testbench. This has some of the typical C includes and a skeleton main function. Finally, I create a blank cpp file for the main function.</p>
+
+<p>After the structure is in place I normally fire up the Vivado HLS GUI (which goes against the grain of what I&rsquo;ve been saying I know&hellip;) to do the initial code development. The HLS GUI offers issue highlighting which quickly shows when functions are not recognised due to missing C includes or incorrect function prototypes. I&rsquo;ve found this to be a really helpful feature whilst getting the first version of some executable function code together. Unfortunately I haven&rsquo;t managed to recreate this functionality in my Atom based editing environment yet so the HLS GUI gets used whilst I get enough code in place to run an initial C simulation.</p>
+
+
+    <figure class="center" >
+        <img src="/images/hls_template_screenshot.png"  alt="Testbench Template"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >The Vivado HLS GUI showing a template testbench cpp file.</figcaption>
+        
+    </figure>
+
+
+
+<p>Once the initial code is executing and I can run a C simulation, even if the design doesn&rsquo;t yet provide the intended functionality (and most often doesn&rsquo;t) I move over to Atom. To do this I take the details from the project&rsquo;s generated script.tcl and use them to create the &lsquo;config.py&rsquo; configuration file for hlsclt. Using Atom and hlsclt I can then rapidly iterate through adding functionality and manipulating the existing code whilst executing C simulations to put in place the full functionality of the design.</p>
+
+<p>Atom and hlsclt continue to be the main tools when I take the design through to C Synthesis and Cosimulation. When the design has its full functionality (or at some other suitable point) I run an initial C Synthesis (no directives, just raw code) and Cosimulation. This Cosimulation should pass, if it doesn&rsquo;t then something is really wrong! Of course, this relies on a well-designed and self-checking testbench. We will save discussion on good testing methodology for another time, for now let&rsquo;s just say it&rsquo;s important to have a good testbench.</p>
+
+<p>Now it&rsquo;s time to optimise! Whether you are looking to crunch through your processing in the least possible time, or minimise the resource usage and create the smallest IP core possible, the optimisation phase looks pretty much the same. I start by analysing the C synthesis reports, taking a benchmark and looking for any obvious functions, processes, loops etc. which look like easy starting points. I also take a close look at the C Synthesis logs, paying particular attention to any warning messages. HLS likes to provide you with warnings when things are sub-optimal, and I would suggest you always aim to have zero warnings by the time you have a stable design (or at least very few warnings, which have all been documented and justified).</p>
+
+
+    <figure class="center" >
+        <img src="/images/atom_warnings_screenshot.png"  alt="C Synthesis Warnings"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Atom editor showing C Synthesis warnings and the origin function.</figcaption>
+        
+    </figure>
+
+
+
+<p>Aim for the <em>big hitters</em> first; get a &lsquo;dataflow&rsquo; directive on if you think your design is suitable for it and look for loops that can be pipelined. If you&rsquo;re aiming for throughput then look for opportunities to unroll loops or add pipelining at the function level. If you&rsquo;re trying to minimise resources then look for opportunities to inline functions or time-share and re-use functions. I will say it again, keep an eye on your C synthesis log!</p>
+
+<p>hsclt provides the &lsquo;keep&rsquo; option, which is extremely useful during this optimisation phase. Add a <code>--keep</code> (or <code>-k</code>) argument to your <code>hlsclt build</code> command to instruct hlsclt to preserve your current Vivado HLS solution and use a new one for the current build. This way you can compare the results of multiple solutions to see the effect of your directives or code changes. Remember to regularly run a Cosimulation as you iterate through changes. Relatively simple changes to your build may introduce errors in Cosimulation, and you are much better off catching them just after you&rsquo;ve made the offending change, rather than several changes later! hlsclt also offers the <code>status</code> command which is a quick way of viewing your project&rsquo;s current status. It prints out the terminal a few standard details and then shows the run/pass/fail/not-run status of each of the HLS build stages, very useful as you rattle round C Simulation, C Synthesis and Cosimulation loops. Another useful feature is the ability to quickly load your project in the Vivado HLS GUI using the <code>hlsclt open_gui</code> command. This allows you to open up the optimisation views to see where you are burning control cycles, or where your dataflow sequence is going wrong, and then get back to your main editor to fix the issue and repeat the last build sequence.</p>
+
+
+    <figure class="center" >
+        <img src="/images/hlsclt_status_screenshot.png"  alt="hlsclt Status Command"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Screenshot showing the hlsclt status command output.</figcaption>
+        
+    </figure>
+
+
+
+<p>Once the design is showing the performance you want in the post synthesis estimates/cosimulation, and it is reliably passing cosimulation, then it&rsquo;s time to move on to the export. You can choose to package up the Vivado HLS output as either an input for the Vivado IP Catalog, which can then be incorporated in a Vivado project, or you can package for System Generator in order to use your IP core as part of a Xilinx System Generator Matlab/Simulink model.</p>
+
+<p>It is important to perform an &lsquo;evaluation&rsquo; on your export early on, I usually do so on my very first export at this point. The evaluate option tells the tool to run the packaged IP block through a Vivado Synthesis and Place and Route process in order to get much more accurate timing and resource details. I&rsquo;ve generally found that the resource usage post Place and Route will be slightly lower than estimated. However, the achievable clock frequency can often cause trouble, especially for large designs, or those with a particularly heavy use of directives. If at this point the evaluation shows that Vivado can&rsquo;t achieve your desired clock rate then you may need to fall back and iterate around another couple of C synthesis loops.</p>
+
+<p>Once the export and evaluation stage is giving you the results you want then you can move into your standard design flow, or hand off your IP core to your trusty colleagues!</p>
+
+<p><strong>Source Control</strong><br />
+One topic I haven&rsquo;t mentioned yet in this post is source control/version management. I thought I would cover this all in one section instead of sprinkling it throughout the other topics. Source control should of course be a fundamental part of your development process, if it&rsquo;s not already (even if you are a hobbyist or student), then I would recommend getting something set up now. Who knows when you might irreversibly break your source code, or accidentally delete an entire Vivado project!</p>
+
+<p>Using Vivado HLS as described above allows for extremely easy integration with source control tools. I use Git for personal projects but have also used SVN professionally in this manner, and both work well. I have adopted a simplified version of Vincent Driessen&rsquo;s <a href="http://nvie.com/posts/a-successful-git-branching-model/">Git branching model</a> where I often don&rsquo;t require release branches to be formed, but try to strictly follow the development/feature branching process. However, typically a HLS project will be just one part of a larger repository so the source control conventions may not always be yours to decide!</p>
+
+<p>I usually perform an initial commit/checkin as soon as I have the skeleton project structure in place (to a development branch if this is part of a larger repository, or straight to master if this is a fresh repo), and then create my main feature branch (e.g. master -&gt; develop -&gt; develop-initial-code), which should take me through to the point where my initial function code is simulating. You should follow your normal conventions for when to commit/checkin, often after significant changes, and between working on different functional sections of your code.</p>
+
+<p>A sensible time to merge your initial feature branch back into the main &lsquo;develop&rsquo; branch (and maybe even the master branch) is when it is successfully passing C Simulation for the first time. At this point you are likely to move on to running the C Synthesis stage and exploring code changes/directives targeted at performance rather than functionality, so a new &lsquo;feature&rsquo; branch should be started.</p>
+
+<p>Multiple &lsquo;feature&rsquo; branches can exist at the some point in time, for example to allow multiple engineers to explore optimisation of different modules/functions within a single large HLS project. I would strongly encourage a rigorous use of source control as one of the fundamentals of managing efficient team work within a HLS development. Parallel optimisation branches may of course mean more difficult merges if any of the function prototypes require changes, and it&rsquo;;s worth flagging that scenario early if you think it will happen.</p>
+
+<p>One of the most important rules of working with source control for HLS projects is to avoid including generated files in your commits. Including generated files can cause havoc when working as part of a team on the same project, and can shed doubt on the validity of your &lsquo;current&rsquo; results even in simple projects. Using hlsclt provides an advantage here as you have access to the <code>clean</code> command which can automatically clean up and remove any generated files, leaving just your source code in place for a commit/checkin. Using the directory structure presented at the start of this post I (almost always) only have the src and tb folders and a config.py file under source control. Another good idea is to setup a .gitignore file or SVN:ignore property to provide a secondary mechanism of disregarding generated files. If you are using hlsclt then I recommend sticking with the default project name and not overwriting this in your config.py, that way you can simply follow the hlsclt conventions and ignore any &lsquo;proj_*&rsquo; directories. When using hlsclt, it is also important to ignore the run_hls.tcl file that the tool generates.</p>
+
+<p><strong>Summary</strong><br />
+Working with Vivado HLS can be an efficient and pleasant experience, especially if you stop and think about whether you currently have the best environment for developing and make steps to improve it. Described above is my current preferred development environment and process. It probably won&rsquo;t work for everyone but I&rsquo;m sure there will be some positive things to take away for anyone reading this post. I hope this will also demonstrate what hlsclt can offer and how to make the most of it. If you find yourself questioning whether your efficiency could be improved then perhaps give what I&rsquo;ve shown here a go. See if you can streamline your process and boost your productivity.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Introducing hlsclt: a Vivado HLS Helper Tool</title>
+            <link>/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</link>
+            <pubDate>Mon, 03 Jul 2017 08:52:43 +0000</pubDate>
+            
+            <guid>/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</guid>
+            <description>Introduction
+In my last blog I considered the trade offs of moving to a command line driven approach to development when using Xilinx&amp;rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &amp;lsquo;go to definition&amp;rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&amp;rsquo;t overly user-friendly.</description>
+            <content type="html"><![CDATA[<p><strong>Introduction</strong><br />
+In my <a href="/posts/using-vivado-hls-on-the-command-line/">last blog</a> I considered the trade offs of moving to a command line driven approach to development when using Xilinx&rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &lsquo;go to definition&rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&rsquo;t overly user-friendly.</p>
+
+<p>Today I want to introduce a tool designed to offer a pleasant, efficient, and user-friendly command line driven environment for development using Vivado HLS.</p>
+
+<p><strong>The Vivado HLS Command Line Helper Tool (hlsclt)</strong><br />
+<a href="https://github.com/benjmarshall/hlcclt">hlsclt</a> is an open source tool built on Python, and hosted on Github, which can streamline development of any project using Xilinx&rsquo;s High Level Synthesis tool. It can be installed on any Linux system which has a (reasonably modern) Python install, takes 2 minutes to learn, and provides all the main functions we need to develop a complex IP core from start to finish.</p>
+
+<p><strong>Installing hlsclt</strong><br />
+Installation couldn&rsquo;t be simpler, hlsclt is hosted on PyPi which means you can simply use pip to download and install the tool:</p>
+
+<pre><code>pip install hlsclt
+</code></pre>
+
+<p>hlsclt is compatible with Python2 and Python3 and has only one dependency, Click, which pip will install for you.</p>
+
+<p><strong>Using hlsclt</strong><br />
+Getting started with hlsclt is easy, once installed you can simply invoke the tool using the command <code>hlsclt</code>. To take a quick look at all the available controls you can use the &lsquo;help&rsquo; argument:</p>
+
+<pre><code>[ben@localhost]$ hlsclt --help
+Usage: hlsclt [OPTIONS] COMMAND [ARGS]...
+
+  Helper tool for using Vivado HLS through the command line. If no arguments
+  are specified then a default run is executed which includes C simulation,
+  C synthesis, Cosimulation and export for both Vivado IP Catalog and System
+  Generator. If any of the run options are specified then only those
+  specified are performed.
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  build     Run HLS build stages.
+  clean     Remove generated files.
+  open_gui  Open the Vivado HLS GUI and load the project.
+  report    Open reports.
+  status    Print out the current project status.
+</code></pre>
+
+<p>For a quick run through of the tool&rsquo;s features it is a good idea to look at the example Vivado HLS project which ships with hlsclt. The example projects are found within the &lsquo;examples&rsquo; directory in the install folder. You can take a copy of this directory in your user area to test out the main features:</p>
+
+<pre><code>[ben@localhost]$ pip show hlsclt
+Name: hlsclt
+Version: 1.0.0a2
+Summary: A Vivado HLS Command Line Helper Tool
+Home-page: https://github.com/benjmarshall/hlsclt
+Author: Ben Marshall
+Author-email: sayhello@benmarshall.co.uk
+License: MIT
+Location: /usr/lib/python3.6/site-packages
+Requires: Click
+[ben@localhost]$ cp -r /usr/lib/python3.6/site-packages/hlsclt/examples/simple_adder ~/simple_adder
+[ben@localhost]$ cd ~/simple_adder/
+[ben@localhost]$ ls
+hls_config.py  __pycache__  src tb
+</code></pre>
+
+<p>The only requirement for using hlsclt with a project is a simple configuration file &lsquo;config.py&rsquo; at the top level of the project structure. This file holds the sort of information you have to provide the Vivado HLS GUI when you create a new project. The configuration file for the example project is shown below, for detailed information see the config file section of the <a href="https://github.com/benjmarshall/hlsclt/blob/master/README.md#project-configuration">hlsclt readme</a>. The tool detects the config.py file when invoked and loads in all the settings. It is important that the <code>hlsclt</code> command is called from the top level of your project structure, where your config.py is located.</p>
+
+<p>View the code on <a href="https://gist.github.com/benjmarshall/0f2e8563298718ac1d9fbc29b2cad653">Gist</a>.</p>
+
+<p>hlsclt is built using the concept of &lsquo;nested&rsquo; commands (similar to the git CLI), where the main command <code>hlsclt</code> has a group of subcommands, some of which in turn have their own subcommands. The <code>build</code> subcommand is where most of the action happens. If you invoke the <code>build</code> subcommand with the help argument you can see it has further subcommands which allow you to run any of the HLS build stages:</p>
+
+<pre><code>[ben@localhost]$ hlsclt build --help
+Usage: hlsclt build [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
+
+  Runs the Vivado HLS tool and executes the specified build stages.
+
+Options:
+  -k, --keep    Preserves existing solutions and creates a new one.
+  -r, --report  Open build reports when finished.
+  --help        Show this message and exit.
+
+Commands:
+  cosim   Runs the Vivado HLS cosimulation stage.
+  csim    Runs the Vivado HLS C simulation stage.
+  export  Runs the Vivado HLS export stage.
+  syn     Runs the Vivado HLS C synthesis stage.
+</code></pre>
+
+<p>Lets run a C simulation:</p>
+
+<pre><code>[ben@localhost]$ hlsclt build csim
+================================================================
+  Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC
+  Version 2017.1
+  Build 1846317 on Fri Apr 14 19:19:38 MDT 2017
+  Copyright (C) 1986-2017 Xilinx, Inc. All Rights Reserved.
+================================================================
+INFO: [HLS 200-10] Running '/opt/Xilinx/Vivado_HLS/2017.1/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'ben' on host 'localhost' (Linux_x86_64 version 3.10.0-514.21.1.el7.x86_64) on Mon Jun 26 15:51:34 NZST 2017
+INFO: [HLS 200-10] In directory '/mnt/centos_share/Vivado_Projects/hlsclt/hlsclt/examples/simple_adder'
+INFO: [HLS 200-10] Creating and opening project '/mnt/centos_share/Vivado_Projects/hlsclt/hlsclt/examples/simple_adder/proj_simple_adder'.
+INFO: [HLS 200-10] Adding design file 'src/dut.h' to the project
+INFO: [HLS 200-10] Adding design file 'src/dut.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'tb/testbench.cpp' to the project
+INFO: [HLS 200-10] Creating and opening solution '/mnt/centos_share/Vivado_Projects/hlsclt/hlsclt/examples/simple_adder/proj_simple_adder/solution1'.
+INFO: [HLS 200-10] Setting target device to '{xc7z020clg484-1}'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../tb/testbench.cpp in debug mode
+   Compiling ../../../../src/dut.cpp in debug mode
+   Generating csim.exe
+Expected result: 100, Got Result: 100
+Expected result: 103, Got Result: 103
+Expected result: 106, Got Result: 106
+Expected result: 109, Got Result: 109
+Expected result: 112, Got Result: 112
+Expected result: 115, Got Result: 115
+Expected result: 118, Got Result: 118
+Expected result: 121, Got Result: 121
+Expected result: 124, Got Result: 124
+Expected result: 127, Got Result: 127
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+</code></pre>
+
+<p>It&rsquo;s as simple as that! Under the hood the tool reads in the configuration from your config.py, writes out all the appropriate Tcl commands to a script and calls the Vivado HLS tool to run that generated script. Any of the build subcommands can be &lsquo;chained&rsquo; together to form a full run, go ahead and run <code>hlsclt build syn cosim export --type ip --evaluate</code> to see what happens.</p>
+
+<p>As well as the build command hlsclt offers the ability to open a specific report using the <code>report</code> command and launch the Vivado HLS GUI to view the project with the <code>open_gui</code> command (useful to have a quick look at the optimisation views). The tool can also show you the current status of your project, which stages have been run and are passing, by using the <code>status</code> command. Finally to allow for really easy integration with source control tools, hlsclt also has a <code>clean</code> command, which removes all the generated files, leaving just your source and &lsquo;config.py&rsquo; to be incorporated into a new check in/commit.</p>
+
+<p><strong>Summary</strong><br />
+So that&rsquo;s hlsclt, a simple, user friendly way to interact with Vivado HLS on the command line. Give it a go and see if you can improve your productivity by harnessing better build times! If up until now you&rsquo;ve been scratched your head wondering how best to manage your C/C++ source for HLS projects, then hlsclt might just be your answer.</p>
+
+<p>I started this post by referring to my last one, where I laid out some of the advantages of moving away from the Vivado HLS GUI, for at least some of your development time. My next post will be a run down of my current development process including my tools, techniques and procedures. This will hopefully shine more light on how to maximise productivity with HLS and put a bit more context around how to use hlsclt.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Using Vivado HLS on the Command Line</title>
+            <link>/posts/using-vivado-hls-on-the-command-line/</link>
+            <pubDate>Wed, 14 Jun 2017 02:39:04 +0000</pubDate>
+            
+            <guid>/posts/using-vivado-hls-on-the-command-line/</guid>
+            <description>Introduction
+Xilinx&amp;rsquo;s High Level Synthesis package, Vivado HLS, is an excellent tool for rapidly developing complex IP cores for FPGA designs. A relatively simple GUI and some reasonable support documents mean anybody can jump in and get started with the tool. However, more advanced users or simply those who have worked with the tool for professional FPGA development for just a few weeks will start to realise the limitations of the GUI.</description>
+            <content type="html"><![CDATA[<p><strong>Introduction</strong><br />
+Xilinx&rsquo;s High Level Synthesis package, Vivado HLS, is an excellent tool for rapidly developing complex IP cores for FPGA designs. A relatively simple GUI and some reasonable support documents mean anybody can jump in and get started with the tool. However, more advanced users or simply those who have worked with the tool for professional FPGA development for just a few weeks will start to realise the limitations of the GUI. Fortunately the tool runs on a powerful underlying Tcl base which allows us to move to the command line to unleash the full power and performance of the tool.</p>
+
+<p><strong>Getting Started</strong><br />
+Vivado HLS has a <a href="https://www.xilinx.com/video/hardware/using-the-vivado-hls-tcl-interface.html">Tcl interface</a> for scripting or interactive use on the command line. To use it you can just add arguments to the <code>vivado_hls</code> command used to launch the GUI.</p>
+
+<p>To drop into an interactive session use:</p>
+
+<pre><code>vivado_hls -i
+</code></pre>
+
+<p>Or to execute a scripted batch run use:</p>
+
+<pre><code>vivado_hls -f script.tcl
+</code></pre>
+
+<p>Once in the interactive environment you can use the <code>help</code> command to list all the commands available and drill down into more detailed help info on each individual command.</p>
+
+
+    <figure class="center" >
+        <img src="/images/vivado_hls_help_screenshot.png"  alt="Vivado HLS Help Output"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Vivado HLS Help Output</figcaption>
+        
+    </figure>
+
+
+
+
+    <figure class="center" >
+        <img src="/images/vivado_hls_help_screenshot.png"  alt="Vivado HLS Help Output"   style="border-radius: 8px;"  />
+
+        
+            <figcaption class="left"  style="color: gray;" >Vivado HLS Help Output</figcaption>
+        
+    </figure>
+
+
+
+<p>For most simple projects the interactive workflow would look very familiar:</p>
+
+<ul>
+<li>Open a new/existing project.</li>
+<li>Open a new/existing solution.</li>
+<li>Define a device.</li>
+<li>Define some source files.</li>
+<li>Specify a top level function for synthesis.</li>
+<li>Optionally, define some directives.</li>
+<li>Execute one or more of the build phases (c simulation, synthesis, cosim, etc).</li>
+</ul>
+
+<p>And then probably iterate around modifying your source/directives and running builds.</p>
+
+<p>Once you have an optimised solution with a build process you are happy with then you can add the commands you need into a Tcl script and move to a scripted build process.</p>
+
+<p><strong>Performance</strong><br />
+One of the big advantages of working on the command line is the gain in performance of the tool. The underlying HLS processes are free to run at improved speeds because fewer overheads are required to maintain the GUI, open and close reports as they are generated and replaced, and capture and present every log message as it happens. Beyond raw processing speed I would also suggest that once adapted to working with the tool&rsquo;s command line environment then the reduction in time spent clicking around in what is often (at least on Linux) a frustratingly laggy GUI, also offers a significant improvement in productivity!</p>
+
+<p>To explore these claims in a better way than just collecting anecdotal evidence I put together a rather un-scientific test to compare the execution times of the 3 most common HLS build processes: C simulation, C synthesis and cosimulation.</p>
+
+<p>The test design used was a quickly knocked together floating point implementation of a sin function which uses a Taylor Series approximation. Xilinx offers a sin/cos function as part of the HLS math libraries but writing one out offered the chance to compare build performance at a couple of different stages of the design process. I used a basic stopwatch test to time the execution of the 3 build stages first using the GUI and then using a Tcl script to invoke the equivalent command. The stopwatch was started when I clicked the last button in the GUI before the process starts (which was the dialog box&rsquo;s ok button for both C sim and cosim) or when I hit return after issuing the <code>vivado_hls -f script.tcl</code> command. The stopwatch was stopped as soon as the final line of the process was printed. I gave each tool 3 runs of each build stage to generate an average. Raw data for the results can be <a href="https://github.com/benjmarshall/hls_scratchpad/blob/master/hls_cmd_line_testing/perf_results.md">here</a>.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="right">Partially Optimised Results</th>
+<th align="right"></th>
+<th align="right">Fully Optimised Results</th>
+<th align="right"></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td align="right">Command Line (s)</td>
+<td align="right">HLS GUI (s)</td>
+<td align="right">Command Line (s)</td>
+<td align="right">HLS GUI (s)</td>
+</tr>
+
+<tr>
+<td>C Simulation</td>
+<td align="right">2.65</td>
+<td align="right">4.50</td>
+<td align="right">2.52</td>
+<td align="right">4.56</td>
+</tr>
+
+<tr>
+<td>C Synthesis</td>
+<td align="right">7.51</td>
+<td align="right">11.59</td>
+<td align="right">8.06</td>
+<td align="right">11.22</td>
+</tr>
+
+<tr>
+<td>Cosimulation</td>
+<td align="right">120.79</td>
+<td align="right">1305.41</td>
+<td align="right">114.92</td>
+<td align="right">116.37</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>HLS Execution Times</em></p>
+
+<p>It should be reasonably obvious that the general trend of these results backs up my claim of better raw tool performance from the command line interface. What&rsquo;s really startling is the cosimulation results for the partially optimized design; a nearly 10x difference just by not using the GUI. This appears to be down to the level of output from the simulator and is something I&rsquo;ve noticed time and time again working with HLS. If your HDL simulation, for whatever reason, outputs a lot of INFOs or WARNINGs (which is very common with generated code) then the HLS GUI seems to grind almost to a halt. In fact, whilst generating that particular group of results I had several full hangs of the cosimulation process. Anecdotal evidence would suggest that performing the same simulations using the Tcl interface has never shown this to cause the same issues, something it now looks like I can back up with an example.</p>
+
+<p>The code used for this experiment is on [Github](&ldquo;<a href="https://github.com/benjmarshall/hls_scratchpad/tree/master/hls_cmd_line_testing&quot;">https://github.com/benjmarshall/hls_scratchpad/tree/master/hls_cmd_line_testing&quot;</a>) along with the full solution folders for the fully optimised design (I&rsquo;ve left some comments in the code if you want to manually roll back to the &lsquo;partially optimised&rsquo; version). This is a small design suitable for a good basic test, but in my experience the same trend holds true (and gets worse for the GUI) as a design becomes more complex and the build/simulation times increase.</p>
+
+<p><strong>Source Control</strong><br />
+Not much information exists on how to manage Vivado HLS projects under source control. Xilinx have tried to disseminate some information about the Vivado approach to revision control, but this focuses on the main Vivado tool and how IP cores are managed once they exist with the IP catalog. How do we manage the source for a Vivado HLS project?</p>
+
+<p>One of the big issues with managing Vivado HLS projects is the amount of files found within a typical project directory. Most of these are generated by HLS. In fact, only the raw source code files are not generated by the tool in some way. As a general rule of thumb I would suggest it is good practice to avoid putting generated files under source control. However, the current status of the project: which build phases have been run, the source file locations, report locations etc, are all wrapped up in some generated &lsquo;project files&rsquo;. In order to avoid re-creating the entire project structure each time we want to &lsquo;check in&rsquo; or &lsquo;commit&rsquo; some source changes we would have to store these generated files with our source code. This creates some rather large commits to your source control tool, and will lead to a lot of file deletions, creations, and replacements on every subsequent commit. Messy!</p>
+
+<p>Taking the GUI out of the equation and moving to command line driven development approach eliminates almost all of these concerns. If a Tcl script is used to control the build procedure then everything to be placed under source control is plain text and exclusively user managed. The Tcl script defines everything needed: the project name, source files, top level function, device, clocks, build procedure etc. If we simply store the raw source code and a single Tcl script then we know, regardless of which project we are pulling (or building, or anything else), that we can re-create the previous build results by executing:</p>
+
+<pre><code>vivado_hls -f script.tcl
+</code></pre>
+
+<p>Simple!</p>
+
+<p><strong>Drawbacks</strong><br />
+As with everything in life, not everything about switching to the Vivado HLS Tcl interface is a positive. Firstly you lose the GUI, it may seem obvious but it&rsquo;s worth talking about some of the more interesting drawbacks this has. We lose access to the code highlighting and tooltips which can aid development, you know that red squiggle that means you typed a function name in wrong, or you haven&rsquo;t included the correct header file. You lose the ability to easily explore the built in HLS classes and functions by ctrl-clicking on types or function names. You also lose the ability to use the dataflow and analysis view, which can at times prove extremely useful for optimising a design.</p>
+
+<p>The second major item on the drawbacks list is the Tcl interface itself; it&rsquo;s quite clunky. The commands aren&rsquo;t the easiest to remember, they aren&rsquo;t that short, and many of them have arguments that you end up wishing would be on by default to avoid having to type them out every damn time!</p>
+
+<p><strong>Summary</strong><br />
+In summary, the Vivado HLS Tcl interface offers a performance increase for demanding builds, and I would argue that on balance avoiding the laggy (and frequently buggy) GUI speeds up design iteration. Embracing a command line driven approach naturally leads to an easy scripted build process and a much easier time with source control. I have personally used both SVN and GIT for professional and personal projects using a primarily command line driven design process.</p>
+
+<p>Avoiding the GUI outright does introduce some major cons though, we lose some of the useful code editing features and the neat optimisation tools. The obvious conclusion is that a productive design process should take a balanced approach. I often start development of a HLS project in the GUI as I architect my code and iterate over the first few C simulations to ensure correct functionality. However, as the design progresses towards the optimisation phase and I start iterating through C synthesis and cosimulations rapidly, I move almost exclusively to the command line using a Tcl script to drive the tool. The exception to this rule is when I need access to the optimisations views, fortunately launching the GUI and opening the generated project is easy and provides access to all those useful features without removing the benefits of returning to the command line for the next build.</p>
+
+<p>I&rsquo;ll follow this post up soon with a more detailed run through of my current design process for working with Vivado HLS. Until then, give the HLS Tcl interface a go if you&rsquo;re not using it already, you won&rsquo;t regret it!</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

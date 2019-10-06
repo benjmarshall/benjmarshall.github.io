@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Ben Marshall</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Ben Marshall</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 05 Jul 2017 05:38:25 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fpga</title>
+      <link>/tags/fpga/</link>
+      <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+      
+      <guid>/tags/fpga/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hls</title>
+      <link>/tags/hls/</link>
+      <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+      
+      <guid>/tags/hls/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hlsclt</title>
+      <link>/tags/hlsclt/</link>
+      <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+      
+      <guid>/tags/hlsclt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vivado</title>
+      <link>/tags/vivado/</link>
+      <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+      
+      <guid>/tags/vivado/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xilinx</title>
+      <link>/tags/xilinx/</link>
+      <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
+      
+      <guid>/tags/xilinx/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
