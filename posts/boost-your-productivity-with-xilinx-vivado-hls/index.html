@@ -11,7 +11,7 @@
 Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&amp;rsquo;ll cover the tools I&amp;rsquo;m using, my methodology and show you how to pick up and integrate these ideas." />
 <meta name="keywords" content="homepage, blog, electronics, fpga, development, programming, mountain biking" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="/posts/boost-your-productivity-with-xilinx-vivado-hls/" />
+<link rel="canonical" href="benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/" />
 
 
 <title>
@@ -27,16 +27,16 @@ Over the last couple of weeks I have written about using Vivado HLS on the comma
 
 
 
-<link rel="stylesheet" href="/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+<link rel="stylesheet" href="/benmarshall.co.uk/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
 
 
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
-<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/benmarshall.co.uk/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/benmarshall.co.uk/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/benmarshall.co.uk/favicon-16x16.png">
+<link rel="manifest" href="/benmarshall.co.uk/site.webmanifest">
+<link rel="mask-icon" href="/benmarshall.co.uk/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/benmarshall.co.uk/favicon.ico">
 <meta name="theme-color" content="#252627"><meta itemprop="name" content="Boost Your Productivity with Xilinx Vivado HLS">
 <meta itemprop="description" content="Introduction
 Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.">
@@ -50,7 +50,7 @@ Over the last couple of weeks I have written about using Vivado HLS on the comma
 
 <meta itemprop="keywords" content="fpga,xilinx,hls,vivado,hlsclt," />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content=""/>
+<meta name="twitter:image" content="benmarshall.co.uk"/>
 
 <meta name="twitter:title" content="Boost Your Productivity with Xilinx Vivado HLS"/>
 <meta name="twitter:description" content="Introduction
@@ -88,7 +88,7 @@ Over the last couple of weeks I have written about using Vivado HLS on the comma
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="/about">About</a></li><li><a href="/posts">Posts</a></li>
+    <ul class="menu__inner"><li><a href="benmarshall.co.uk/benmarshall.co.uk/about">About</a></li><li><a href="benmarshall.co.uk/benmarshall.co.uk/posts">Posts</a></li>
     </ul>
 </nav>
 
@@ -124,13 +124,13 @@ Over the last couple of weeks I have written about using Vivado HLS on the comma
         </div>
 
         <article>
-            <h1 class="post-title"><a href="/posts/boost-your-productivity-with-xilinx-vivado-hls/">Boost Your Productivity with Xilinx Vivado HLS</a></h1>
+            <h1 class="post-title"><a href="benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/">Boost Your Productivity with Xilinx Vivado HLS</a></h1>
 
             
 
             <div class="post-content">
                 <p><strong>Introduction</strong><br />
-Over the last couple of weeks I have written about <a href="/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
+Over the last couple of weeks I have written about <a href="benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
 
 <p><strong>Tools and OS Setup</strong><br />
 My distro of choice is the fantastic <a href="https://manjaro.org/">Manjaro Linux</a>. However, Xilinx&rsquo;s Vivado Suite is only supported on Windows and RHEL, CentOS, SUSE and Ubuntu Linux. I personally use CentOS as it is a completely free, community supported, enterprise quality distribution which uses RHEL as it&rsquo;s upstream source. I only use CentOS to provide the base for those tools which require it (Vivado, Matlab etc) and so it is relegated to running in a virtual machine. To achieve this I use VirtualBox and typically boot the CentOS VM on the command line using VirtualBox&rsquo;s built in <a href="https://www.virtualbox.org/manual/ch07.html#vboxheadless">headless support</a>. I have ssh configured so that I can remotely log in to the running VM with X window forwarding and have a shared data partition permanently mounted so all the CentOS based tools feel like they are running locally. Alongside the Xilinx design tools I also have <a href="https://github.com/benjmarshall/hlsclt/">hlsclt</a> installed on the CentOS VM as it needs to interact with Vivado HLS directly.</p>
@@ -276,7 +276,7 @@ Working with Vivado HLS can be an efficient and pleasant experience, especially 
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="tags/fpga">fpga</a></span><span class="tag"><a href="tags/xilinx">xilinx</a></span><span class="tag"><a href="tags/hls">hls</a></span><span class="tag"><a href="tags/vivado">vivado</a></span><span class="tag"><a href="tags/hlsclt">hlsclt</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="benmarshall.co.uk/tags/fpga">fpga</a></span><span class="tag"><a href="benmarshall.co.uk/tags/xilinx">xilinx</a></span><span class="tag"><a href="benmarshall.co.uk/tags/hls">hls</a></span><span class="tag"><a href="benmarshall.co.uk/tags/vivado">vivado</a></span><span class="tag"><a href="benmarshall.co.uk/tags/hlsclt">hlsclt</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2266 Words</p>
@@ -296,7 +296,7 @@ Working with Vivado HLS can be an efficient and pleasant experience, especially 
 
                     
                         <span class="button next">
-                            <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">
+                            <a href="benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">
                                 <span class="button__text">Introducing hlsclt: a Vivado HLS Helper Tool</span>
                                 <span class="button__icon">→</span>
                             </a>
@@ -317,10 +317,10 @@ Working with Vivado HLS can be an efficient and pleasant experience, especially 
         <div class="footer__content">
             <span>&copy; 2019</span>
             
-                <span><a href="">Ben Marshall</a></span>
+                <span><a href="benmarshall.co.uk">Ben Marshall</a></span>
             
             <span></span>
-            <span> <a href="posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            <span> <a href="benmarshall.co.uk/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>
     <div class="footer__inner">
@@ -344,7 +344,7 @@ Working with Vivado HLS can be an efficient and pleasant experience, especially 
 
 
 
-<script type="text/javascript" src="/bundle.min.4c3fb12a087ceed4a52cb5d57068a9795c7069617a01ca70f788052ad66e1791779e6c72686e1dc0ca13dc03b0203204b6566bb0dd1ee80de2b7ff4d8fe53db2.js" integrity="sha512-TD&#43;xKgh87tSlLLXVcGipeVxwaWF6Acpw94gFKtZuF5F3nmxyaG4dwMoT3AOwIDIEtlZrsN0e6A3it/9Nj&#43;U9sg=="></script>
+<script type="text/javascript" src="/benmarshall.co.uk/bundle.min.4c3fb12a087ceed4a52cb5d57068a9795c7069617a01ca70f788052ad66e1791779e6c72686e1dc0ca13dc03b0203204b6566bb0dd1ee80de2b7ff4d8fe53db2.js" integrity="sha512-TD&#43;xKgh87tSlLLXVcGipeVxwaWF6Acpw94gFKtZuF5F3nmxyaG4dwMoT3AOwIDIEtlZrsN0e6A3it/9Nj&#43;U9sg=="></script>
 
 
 

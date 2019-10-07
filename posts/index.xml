@@ -1,23 +1,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Ben Marshall</title>
-        <link>/posts/</link>
+        <link>benmarshall.co.uk/posts/</link>
         <description>Recent content in Posts on Ben Marshall</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-gb</language>
         <lastBuildDate>Wed, 05 Jul 2017 05:38:25 +0000</lastBuildDate>
-        <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="benmarshall.co.uk/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>Boost Your Productivity with Xilinx Vivado HLS</title>
-            <link>/posts/boost-your-productivity-with-xilinx-vivado-hls/</link>
+            <link>benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</link>
             <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
             
-            <guid>/posts/boost-your-productivity-with-xilinx-vivado-hls/</guid>
+            <guid>benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</guid>
             <description>Introduction
 Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&amp;rsquo;ll cover the tools I&amp;rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</description>
             <content type="html"><![CDATA[<p><strong>Introduction</strong><br />
-Over the last couple of weeks I have written about <a href="/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
+Over the last couple of weeks I have written about <a href="benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/">using Vivado HLS on the command line</a> and <a href="benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/">an open source tool</a> which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&rsquo;ll cover the tools I&rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</p>
 
 <p><strong>Tools and OS Setup</strong><br />
 My distro of choice is the fantastic <a href="https://manjaro.org/">Manjaro Linux</a>. However, Xilinx&rsquo;s Vivado Suite is only supported on Windows and RHEL, CentOS, SUSE and Ubuntu Linux. I personally use CentOS as it is a completely free, community supported, enterprise quality distribution which uses RHEL as it&rsquo;s upstream source. I only use CentOS to provide the base for those tools which require it (Vivado, Matlab etc) and so it is relegated to running in a virtual machine. To achieve this I use VirtualBox and typically boot the CentOS VM on the command line using VirtualBox&rsquo;s built in <a href="https://www.virtualbox.org/manual/ch07.html#vboxheadless">headless support</a>. I have ssh configured so that I can remotely log in to the running VM with X window forwarding and have a shared data partition permanently mounted so all the CentOS based tools feel like they are running locally. Alongside the Xilinx design tools I also have <a href="https://github.com/benjmarshall/hlsclt/">hlsclt</a> installed on the CentOS VM as it needs to interact with Vivado HLS directly.</p>
@@ -160,14 +160,14 @@ Working with Vivado HLS can be an efficient and pleasant experience, especially 
         
         <item>
             <title>Introducing hlsclt: a Vivado HLS Helper Tool</title>
-            <link>/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</link>
+            <link>benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</link>
             <pubDate>Mon, 03 Jul 2017 08:52:43 +0000</pubDate>
             
-            <guid>/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</guid>
+            <guid>benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</guid>
             <description>Introduction
 In my last blog I considered the trade offs of moving to a command line driven approach to development when using Xilinx&amp;rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &amp;lsquo;go to definition&amp;rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&amp;rsquo;t overly user-friendly.</description>
             <content type="html"><![CDATA[<p><strong>Introduction</strong><br />
-In my <a href="/posts/using-vivado-hls-on-the-command-line/">last blog</a> I considered the trade offs of moving to a command line driven approach to development when using Xilinx&rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &lsquo;go to definition&rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&rsquo;t overly user-friendly.</p>
+In my <a href="benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/">last blog</a> I considered the trade offs of moving to a command line driven approach to development when using Xilinx&rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &lsquo;go to definition&rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&rsquo;t overly user-friendly.</p>
 
 <p>Today I want to introduce a tool designed to offer a pleasant, efficient, and user-friendly command line driven environment for development using Vivado HLS.</p>
 
@@ -298,10 +298,10 @@ So that&rsquo;s hlsclt, a simple, user friendly way to interact with Vivado HLS 
         
         <item>
             <title>Using Vivado HLS on the Command Line</title>
-            <link>/posts/using-vivado-hls-on-the-command-line/</link>
+            <link>benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</link>
             <pubDate>Wed, 14 Jun 2017 02:39:04 +0000</pubDate>
             
-            <guid>/posts/using-vivado-hls-on-the-command-line/</guid>
+            <guid>benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</guid>
             <description>Introduction
 Xilinx&amp;rsquo;s High Level Synthesis package, Vivado HLS, is an excellent tool for rapidly developing complex IP cores for FPGA designs. A relatively simple GUI and some reasonable support documents mean anybody can jump in and get started with the tool. However, more advanced users or simply those who have worked with the tool for professional FPGA development for just a few weeks will start to realise the limitations of the GUI.</description>
             <content type="html"><![CDATA[<p><strong>Introduction</strong><br />

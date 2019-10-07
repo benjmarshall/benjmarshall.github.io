@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Ben Marshall</title>
-    <link>/tags/</link>
+    <link>benmarshall.co.uk/tags/</link>
     <description>Recent content in Tags on Ben Marshall</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 05 Jul 2017 05:38:25 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="benmarshall.co.uk/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>fpga</title>
-      <link>/tags/fpga/</link>
+      <link>benmarshall.co.uk/tags/fpga/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>/tags/fpga/</guid>
+      <guid>benmarshall.co.uk/tags/fpga/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hls</title>
-      <link>/tags/hls/</link>
+      <link>benmarshall.co.uk/tags/hls/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>/tags/hls/</guid>
+      <guid>benmarshall.co.uk/tags/hls/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hlsclt</title>
-      <link>/tags/hlsclt/</link>
+      <link>benmarshall.co.uk/tags/hlsclt/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>/tags/hlsclt/</guid>
+      <guid>benmarshall.co.uk/tags/hlsclt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vivado</title>
-      <link>/tags/vivado/</link>
+      <link>benmarshall.co.uk/tags/vivado/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>/tags/vivado/</guid>
+      <guid>benmarshall.co.uk/tags/vivado/</guid>
       <description></description>
     </item>
     
     <item>
       <title>xilinx</title>
-      <link>/tags/xilinx/</link>
+      <link>benmarshall.co.uk/tags/xilinx/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>/tags/xilinx/</guid>
+      <guid>benmarshall.co.uk/tags/xilinx/</guid>
       <description></description>
     </item>
     
