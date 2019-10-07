@@ -2,51 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ben Marshall</title>
-    <link>benmarshall.co.uk/</link>
+    <link>https://benmarshall.co.uk/</link>
     <description>Recent content on Ben Marshall</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 05 Jul 2017 05:38:25 +0000</lastBuildDate>
     
-	<atom:link href="benmarshall.co.uk/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://benmarshall.co.uk/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Boost Your Productivity with Xilinx Vivado HLS</title>
-      <link>benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</link>
+      <link>https://benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</link>
       <pubDate>Wed, 05 Jul 2017 05:38:25 +0000</pubDate>
       
-      <guid>benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</guid>
+      <guid>https://benmarshall.co.uk/posts/boost-your-productivity-with-xilinx-vivado-hls/</guid>
       <description>Introduction
 Over the last couple of weeks I have written about using Vivado HLS on the command line and an open source tool which can help you do just that. In this post I will give you a look at my current development process and present a quick demonstration of how I approach a new project. I&amp;rsquo;ll cover the tools I&amp;rsquo;m using, my methodology and show you how to pick up and integrate these ideas.</description>
     </item>
     
     <item>
       <title>Introducing hlsclt: a Vivado HLS Helper Tool</title>
-      <link>benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</link>
+      <link>https://benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</link>
       <pubDate>Mon, 03 Jul 2017 08:52:43 +0000</pubDate>
       
-      <guid>benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</guid>
+      <guid>https://benmarshall.co.uk/posts/introducing-hlsclt-a-vivado-hls-helper-tool/</guid>
       <description>Introduction
 In my last blog I considered the trade offs of moving to a command line driven approach to development when using Xilinx&amp;rsquo;s High Level Synthesis tool, Vivado HLS. As a quick summary I suggested that moving to the command line increases how the underlying tool performs and allows for easier integration with source control tools. However, I conceded that we do lose access to useful features such as &amp;lsquo;go to definition&amp;rsquo; and the optimisation views and that the Vivado HLS built-in Tcl interface isn&amp;rsquo;t overly user-friendly.</description>
     </item>
     
     <item>
       <title>Using Vivado HLS on the Command Line</title>
-      <link>benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</link>
+      <link>https://benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</link>
       <pubDate>Wed, 14 Jun 2017 02:39:04 +0000</pubDate>
       
-      <guid>benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</guid>
+      <guid>https://benmarshall.co.uk/posts/using-vivado-hls-on-the-command-line/</guid>
       <description>Introduction
 Xilinx&amp;rsquo;s High Level Synthesis package, Vivado HLS, is an excellent tool for rapidly developing complex IP cores for FPGA designs. A relatively simple GUI and some reasonable support documents mean anybody can jump in and get started with the tool. However, more advanced users or simply those who have worked with the tool for professional FPGA development for just a few weeks will start to realise the limitations of the GUI.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>benmarshall.co.uk/about/</link>
+      <link>https://benmarshall.co.uk/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>benmarshall.co.uk/about/</guid>
+      <guid>https://benmarshall.co.uk/about/</guid>
       <description>I am a digital electronics professional focusing on FPGA Implementation and digital processor system design. However, most of the time I can be found somewhere in the hills on a mountain bike.</description>
     </item>
     
